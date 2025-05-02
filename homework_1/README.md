@@ -1,4 +1,4 @@
-Introduction
+# Introduction
 
 This program is designed for convenient investment calculations, implemented in the GO programming language.
 
