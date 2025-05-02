@@ -2,6 +2,12 @@
 
 This program is designed for convenient investment calculations, implemented in the GO programming language.
 
+---
+
+# CAUTION
+**I used grok as my AI assistant for some, let's say boring stuff as 10x fmt.Print or just for complicated things, I marked them in code, so you can see where I used Ai**
+
+---
 Dependencies
 
 To run this program, you will need the following:
