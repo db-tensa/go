@@ -10,6 +10,7 @@ To run this program, you will need the following:
  - Tcell
  - Any terminal with x-256color support
  - For optimal performance, consider using a terminal other than Kitty (e.g., Alacritty or WezTerm).
+ - make
 
 **Also, if you want to execute my scipt, then do**
 
@@ -18,6 +19,13 @@ To run this program, you will need the following:
 ```
 
 ---
+
+**And again, if you want to simplify your life, use my **Makefile**. Just type `make` in your terminal**
+
+```bash
+cd $HOME/_go/homework_1/
+make
+```
 
 
 ## Troubleshooting
@@ -33,7 +41,7 @@ sudo pacman -Syu
 sudo pacman -S go
 ```
 
-### For ubuntu
+### For Ubuntu
 
 ```bash
 sudo apt update
