@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"time"
+	"unicode"
 )
 
 func main() {
@@ -20,18 +21,7 @@ func main() {
 	fmt.Println("LOOOPS")
 	fmt.Println("--------------------------------------------------------------")
 
-	sliice :=[]string{"Alex", "Nikita", "Andrey"}
 
-	// i := 0
-	// for  i < 3 {
-	// 	a := i+3
-	// 	fmt.Println("Iteration ", i, i, i, a)
-	// }
-
-	for i := 0; i < len(sliice); i++{
-
-		fmt.Println(sliice[i], i )
-	}
 	outerLoop:
 	for i := 0; i < 4; i++{
 		for j:= 0; j < 4; j++{
@@ -40,30 +30,35 @@ func main() {
 		}
 
 	}
-	for i := 0; i < 10; i++{
-		if i % 2 == 0{
-			continue
-		}else{
-			fmt.Println("Even", i)
-		}
-	}
 
 
 	for i := 2; i < 10; i++ {
-		
+
 		if 21%i == 0  || i / 9 == 1{
 			fmt.Println(i)
 		}
 	}
 
 
-	fmt.Println("New ")
-	for i := 0; i < 10; i++ {
-    if i > 4 && i < 7 {
-        continue
-    }
-    fmt.Println("число:", i)
-}
+	var ch byte = 'A'
+	fmt.Println(string(ch))
 
+var name = "dsds"
+	for _, r := range name{
+		if !unicode.IsLetter(r) && !unicode.IsSpace(r){
+			fmt.Println("bad")
+		}
+	}
+	text := "Hello dsds"
+	runes := []rune(text)
+	fmt.Println(runes)
+
+	s := "ID彼氏彼女の事情"
+
+	fmt.Println(len(s))
+
+	for i:= 0; i < len(s); i ++{
+		fmt.Println( "%x" ,s[i])
+	}
 }
 
