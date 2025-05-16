@@ -53,9 +53,17 @@ func main() {
 
 	var word_upon_a_space string // if in future, the iterator will face to face a space a.k.a a " ", then the word he readed will be allocated in slice
 
+	
+
 	// iterating on a text
 	for _, iter := range user_text {
-		// checking if our symbol is a letter
+		// checking the size, if 0 then return 1 
+		if len(user_text) == 0{
+			fmt.Println("Variable is empty shutting the program")
+			os.Exit(1)
+		}
+				// checking if our symbol is a letter
+
 		if unicode.IsLetter(iter) {
 			// adding a word into a "sub-variable"
 			word_upon_a_space += string(iter)
@@ -69,11 +77,18 @@ func main() {
 
 	}
 
+
+	// all words
+	all_words := len(users_words_in_slice_mode)
+
+	
 	// ahh, just for beauty : )
 	var horiz int
 	for i := 0; i < len(users_words_in_slice_mode); i++ {
-		horiz += i * 2
+		horiz += i * 2 
 	}
+
+
 
 	// we will use a buffer, as our container for words
 	buffer := []byte{}
@@ -140,6 +155,7 @@ func main() {
 		// So the user can see the word or the letter he inputed, and also the text !
 
 		fmt.Println("\r", user_text)
+		fmt.Println("\r", "You text has ", all_words, "words")
 
 	}
 }
