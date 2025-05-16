@@ -137,12 +137,14 @@ func main() {
 		// clearing a window
 		fmt.Print("\033[2J\033[H")
 
-		input := string(buffer)                   // again, transormering it form byte format to string format
+		input := string(buffer)                   // again, transform it form byte format to string format
 		fmt.Println("Enter something >> ", input) // there is a buffer !
 
+
+		// iterati on user input
 		for _, word := range users_words_in_slice_mode {
-			if strings.HasPrefix(word, input) {
-				fmt.Println("\r", word)
+			if strings.HasPrefix(word, input) { // find a match ? Print it !
+				fmt.Println("\r", word) 
 				fmt.Println("\r", "------------------------")
 			}
 		}
@@ -153,9 +155,9 @@ func main() {
 		}
 
 		// So the user can see the word or the letter he inputed, and also the text !
-
 		fmt.Println("\r", user_text)
-		fmt.Println("\r", "You text has ", all_words, "words")
+		// printing an amount of words that user input contains 
+		fmt.Println("\r", "Your text has ", all_words, "words")
 
 	}
 }
