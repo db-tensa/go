@@ -5,7 +5,6 @@ import (
 	"golang.org/x/term" // importing it for enter in a raw mode in terminal
 	"os"                // to get an file access
 	"strings"           // for castring from one data type to another
-	"unicode"           // for checking a symbols
 )
 
 func main() {
@@ -21,7 +20,6 @@ func main() {
 	filename := os.Args[1] // getting a filename, in future this variable will be used as a more simple way to access a file
 
 	// reading a file , this is a high-levle reading acess, ofcourse, I could made it with syscall, but there is no reason to use it
-
 	writed_text, err := os.ReadFile(filename) // reading a file
 	if err != nil {                           // checking if it's okay
 		fmt.Println("Error getting a file. Check your directory permissions, and check file itself")
@@ -29,8 +27,8 @@ func main() {
 	}
 
 	// converting a file output from byte format to string format.
-	// We need  it because of next loop iteration.
-	user_text := string(writed_text)
+	// And i made it more clener, Because of new implementaion of the loop in the "buffer". I don't need any more loop which adds words in slice
+	original_text := string(writed_text)
 
 	//This string is a kind of support, which allows me to use input with a short reaction of the program to the text entered by the user,
 	//which, by the way, saves me from some small problems. But on the other hand, it prevents me from entering characters,
@@ -43,52 +41,7 @@ func main() {
 	// it preventing a transormation  your terminal in to the garbage
 	// Btw I forget to mention it in my first homework
 	// Defer like a list, it will be executed roughly speaking almost before closing the program
-
 	defer term.Restore(int(os.Stdin.Fd()), oldState)
-
-	// we converting the text from file in to the slice,  because
-	// 1. Using  a slice, counting words - the simple task
-	// 2. With slices I can eaaaaaaaaaaasily access to needed word without any "troubels"
-	users_words_in_slice_mode := []string{}
-
-	var word_upon_a_space string // if in future, the iterator will face to face a space a.k.a a " ", then the word he readed will be allocated in slice
-
-	
-
-	// iterating on a text
-	for _, iter := range user_text {
-		// checking the size, if 0 then return 1 
-		if len(user_text) == 0{
-			fmt.Println("Variable is empty shutting the program")
-			os.Exit(1)
-		}
-				// checking if our symbol is a letter
-
-		if unicode.IsLetter(iter) {
-			// adding a word into a "sub-variable"
-			word_upon_a_space += string(iter)
-		} else if iter == ' ' {
-
-			// meet a space ? Add a word in slice
-			users_words_in_slice_mode = append(users_words_in_slice_mode, word_upon_a_space)
-			// cleaning it, if we dont do it, then the word we added before, will also be in the slice, here's an example "fire fire hello fire no fire what"
-			word_upon_a_space = ""
-		}
-
-	}
-
-
-	// all words
-	all_words := len(users_words_in_slice_mode)
-
-	
-	// ahh, just for beauty : )
-	var horiz int
-	for i := 0; i < len(users_words_in_slice_mode); i++ {
-		horiz += i * 2 
-	}
-
-
 
 	// we will use a buffer, as our container for words
 	buffer := []byte{}
@@ -103,6 +56,10 @@ func main() {
 	fmt.Println("\r", "GOOD LUCK")
 	fmt.Println("\r", "------------------------")
 
+	// printing original text before any user input
+	fmt.Print("\033[2J\033[H")
+	fmt.Println(original_text)
+
 	for {
 		// this variable will contain an one symbol which user writed
 		buf := make([]byte, 1)
@@ -114,18 +71,6 @@ func main() {
 		// points to the beginning of the buffer for proper operation
 		b := buf[0]
 
-		// determinate the backspace
-		if b == 127 || b == 8 {
-			if len(buffer) > 0 {
-				// basically, I found the only way - after each backspace that user pressed,
-				//we creating a new buffer, which size is smaller than previous buffer size
-				buffer = buffer[:len(buffer)-1]
-			}
-			// checking the letter (ASCII LETTER ! ) that user enter
-		} else if b >= 32 && b <= 126 {
-			buffer = append(buffer, b) // pushing the word in to the massive
-		}
-
 		// for program shutting (27 == escape)
 		if b == 27 {
 			fmt.Print("\033[2J\033[H")
@@ -134,30 +79,43 @@ func main() {
 			os.Exit(0)
 		}
 
+		// determinate the backspace
+		if b == 127 || b == 8 {
+			if len(buffer) > 0 {
+				// basically, I found the only way - after each backspace that user pressed,
+				//we creating a new buffer, which size is smaller than previous buffer size
+				buffer = buffer[:len(buffer)-1]
+			}
+		} else if b >= 32 && b <= 126 {
+			// checking the letter (ASCII LETTER ! ) that user enter
+			buffer = append(buffer, b) // pushing the word in to the massive
+		}
+
+		input := string(buffer) // again, transform it form byte format to string format
+
 		// clearing a window
 		fmt.Print("\033[2J\033[H")
-
-		input := string(buffer)                   // again, transform it form byte format to string format
-		fmt.Println("Enter something >> ", input) // there is a buffer !
-
+		fmt.Println("\r\x1b[34m >> ", input, " << \x1b[0m")
 
 		// iterati on user input
-		for _, word := range users_words_in_slice_mode {
-			if strings.HasPrefix(word, input) { // find a match ? Print it !
-				fmt.Println("\r", word) 
-				fmt.Println("\r", "------------------------")
+		highlighted_text := original_text
+
+		if len(input) > 0 { // i know that i should check it earlier, but still good
+			words := strings.Fields(original_text)
+			for _, word := range words {
+				if strings.HasPrefix(word, input) {
+					// HERE IS THE COLORFUL TEXT !
+					// and yeah, I make it more simplier and more attractive. Of course, I could do it through a library with color styles, but ascii code are jsut simplier.
+					highlighted := "\033[31m" + word + "\033[0m"
+					highlighted_text = strings.ReplaceAll(highlighted_text, word, highlighted)
+				}
 			}
 		}
 
-		// for beauty  ^_^. What I just typed
-		for i := 0; i < horiz; i++ {
-			fmt.Print("\r", "-")
-		}
-
+		fmt.Println("\r\x1b[32m\x1b[1m<<<<<<<< Your text >>>>>>>>\x1b[0m")
+		fmt.Println("\r", "\n", highlighted_text)
+		fmt.Println("\r\x1b[32m\x1b[1m<<<<<<<< End of text >>>>>>>>\x1b[0m")
 		// So the user can see the word or the letter he inputed, and also the text !
-		fmt.Println("\r", user_text)
-		// printing an amount of words that user input contains 
-		fmt.Println("\r", "Your text has ", all_words, "words")
-
+		// fmt.Println("\r", user_text)
 	}
 }
