@@ -5,7 +5,9 @@
 - **Author as always is a ruthless and evil linuxoid who didn't think to install windows on qemu and test the program there**
   
 
-**By the way, the second program that is made exactly for the task is in the folder re_homework**
+**By the way, the second program that is made exactly for the task is in the folder real_hw**
+
+- But still please rate this one too :)
 ---
 
 # About the program and its work (briefly)
