@@ -95,17 +95,18 @@ func main() {
 
 		// clearing a window
 		fmt.Print("\033[2J\033[H")
+		// new output
 		fmt.Println("\r\x1b[34m >> ", input, " << \x1b[0m")
 
-		// iterati on user input
+		// comfortable ? 
 		highlighted_text := original_text
 
-		if len(input) > 0 { // i know that i should check it earlier, but still good
+		if len(input) > 0 { // i know i know,  that i should check it earlier, but still good
 			words := strings.Fields(original_text)
 			for _, word := range words {
 				if strings.HasPrefix(word, input) {
 					// HERE IS THE COLORFUL TEXT !
-					// and yeah, I make it more simplier and more attractive. Of course, I could do it through a library with color styles, but ascii code are jsut simplier.
+					// and yeah, I make it more simplier and more attractive. Of course, I could do it through a library with color styles, but ascii code are just simplier.
 					highlighted := "\033[31m" + word + "\033[0m"
 					highlighted_text = strings.ReplaceAll(highlighted_text, word, highlighted)
 				}
@@ -114,7 +115,7 @@ func main() {
 
 
 
-		// printing the beaty text 💅💅💅💅💅💅💅💅
+		// printing the beauty text 💅💅💅💅💅💅💅💅
 		fmt.Println("\r\x1b[32m\x1b[1m<<<<<<<< Your text >>>>>>>>\x1b[0m")
 		fmt.Println("\r", "\n", highlighted_text)
 		fmt.Println("\r\x1b[32m\x1b[1m<<<<<<<< End of text >>>>>>>>\x1b[0m")
