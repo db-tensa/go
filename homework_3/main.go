@@ -112,10 +112,15 @@ func main() {
 			}
 		}
 
+
+
+		// printing the beaty text 💅💅💅💅💅💅💅💅
 		fmt.Println("\r\x1b[32m\x1b[1m<<<<<<<< Your text >>>>>>>>\x1b[0m")
 		fmt.Println("\r", "\n", highlighted_text)
 		fmt.Println("\r\x1b[32m\x1b[1m<<<<<<<< End of text >>>>>>>>\x1b[0m")
-		// So the user can see the word or the letter he inputed, and also the text !
-		// fmt.Println("\r", user_text)
+		//of course I had realization where all words were adding in the slice EXPECT the last one, so here is the "uga buga" realization
+		//Basically it's just breaking the whole text in words 
+		words := strings.Fields(original_text)
+		fmt.Println("\r","Amount of words",len(words))
 	}
 }
