@@ -17,10 +17,4 @@
           .oossssso-````/ossssss+`          │ ├: Hyprland 0.49.0 (Wayland)
          -osssssso.      :ssssssso.         └ └: kitty 0.42.0
         :osssssss/        osssso+++.        └────────────────────────────────────────────────────┘
-       /ossssssss/        +ssssooo/-
-     `/ossssso+/:-        -:/+osssso+-      ┌────────────────────Uptime / Age / DT────────────────────┐
-    `+sso+:-`                 `.-/+oso:       OS Age : 17 days
-   `++:.                           `-/+/      Uptime : 2 hours, 6 mins
-   .`                                 `/      DateTime : 2025-05-23 23:29:00
-                                            └─────────────────────────────────────────────────────────┘
-                                            ⬤ ⬤ ⬤ ⬤ ⬤ ⬤
+     
