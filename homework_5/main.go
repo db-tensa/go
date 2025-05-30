@@ -49,7 +49,7 @@ func removePlayer(nickname string) bool {
 	delete(matchesPlayed, nickname)
 	delete(wins, nickname)
 	delete(losses, nickname)
-	return true // Poof, gone
+	return true 
 }
 
 // Finds player index, -1
@@ -134,7 +134,7 @@ func sortPlayersByRating() []string {
 func getBestPlayer() string {
 	// No players? No king
 	if len(players) == 0 {
-		return "No players, no champ"
+		return "No players"
 	}
 	// Sort, grab top
 	sorted := sortPlayersByRating()
@@ -145,7 +145,7 @@ func getBestPlayer() string {
 func getWorstPlayer() string {
 	// No players? No loser
 	if len(players) == 0 {
-		return "No players, no flop"
+		return "No players"
 	}
 	// Sort, grab last
 	sorted := sortPlayersByRating()
@@ -342,12 +342,12 @@ func main() {
 				}
 			}
 		} else if choice == 7 {
-			// Rating range search, messy in main
+			// Rating range search
 			minRating := getIntInput("Min rating: ")
 			maxRating := getIntInput("Max rating: ")
 			if minRating > maxRating {
 				fmt.Println("\r\x1b[31mMin bigger than max, crashin!\x1b[0m")
-				os.Exit(1) // No retry, just die
+				os.Exit(1) // No retry
 			}
 			var result []string
 			for _, nickname := range players {
