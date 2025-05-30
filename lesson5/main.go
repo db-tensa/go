@@ -4,14 +4,19 @@ import (
 	"fmt"
 )
 
+// func remove(slice []string, index int) []string{
+// 	return append(slice[:index], slice[index+1:]...)
+// } 
+//
+
 func main() {
 
-	arr := [5]int{1, 2, 3, 4, 5}
+	var scores map[string]int 
 
-	slice1 := arr[1:4]
-	slice2 := arr[0:3]
-
-	fmt.Println(slice1)
-	fmt.Println(slice2)
+	userAges := map[string]int{
+		"Ann":25
+		"Bohdan":22
+	}
+	contacts := make(map[string]string)
 
 }
