@@ -4,32 +4,22 @@ import (
 	"fmt"
 )
 
-type Dog struct {
-	Name string
-	Species string 
-
+type mover interface{
+	Move() string
+}
+type Robot struct{
+	Model string 
 }
 
-type Bird struct {
-	Name string 
-	Species string 
+func (r Robot ) Speak() string{
+	return "BEep beep"
 }
 
-type Animal interface{
-	MakeSound() string 
+func (r Robot) mover() string{
+	return "how wheel"
 }
 
-func printAnimalSound(a Animal){
-
-	fmt.Println(a.MakeSound())
-
+func main(){
+	robot := Robot{Model: "R02"}
 }
 
-func main() {
-
-	bird := Bird{Name: "Kesha", Species: "Parrot"}
-	dog := Dog{Name: "Boris", Species: "Retriver"}
-
-	printAnimalSound(bird)
-	printAnimalSound(dog)
-}
